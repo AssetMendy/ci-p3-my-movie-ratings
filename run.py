@@ -47,6 +47,23 @@ def add_movie_rating():
     SHEET.append_row(row)
     print("Movie added successfully!")
 
+# Get all the rows from the sheet
+def get_all_movies():
+
+    """
+    Gets ID, Title, Genre, Rating and Comment from Google Sheet,
+    then displays it to a user in a clean table view with help of
+    tabulate module
+    """
+    # Get all the rows from the sheet
+    rows = sheet.get_all_values()
+    # Exclude the header row
+    headers = rows.pop(0)
+    # Display the rows as a table
+    table = tabulate(rows, headers=headers, tablefmt='orgtbl')
+    print(table)
+    return table
+
 
 def menu():
     """
