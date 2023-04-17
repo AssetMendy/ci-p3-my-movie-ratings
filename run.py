@@ -47,6 +47,22 @@ def add_movie_rating():
     SHEET.append_row(row)
     print("Movie added successfully!")
 
+
+# Function to delete an existing movie rating from the sheet
+def delete_movie_rating():
+    get_all_movies()
+    # Get the ID of the movie to be deleted from the user
+    movie_id = input("Enter the ID of the movie to delete: ")
+    
+    # Find the row index of the movie with the given ID
+    row_index = None
+    for i in range(1, len(SHEET.get_all_values())):
+        row = SHEET.row_values(i)
+        if row[0] == movie_id:
+            row_index = i
+            break
+
+
 # Get all the rows from the sheet
 def get_all_movies():
 
@@ -56,7 +72,7 @@ def get_all_movies():
     tabulate module
     """
     # Get all the rows from the sheet
-    rows = sheet.get_all_values()
+    rows = SHEET.get_all_values()
     # Exclude the header row
     headers = rows.pop(0)
     # Display the rows as a table
@@ -96,7 +112,7 @@ def menu():
         elif user_choice == "2":
             edit_movie()
         elif user_choice == '3':
-            delete_movie()
+            delete_movie_rating()
         elif user_choice == "4":
             movies = get_all_movies()
             if movies:
