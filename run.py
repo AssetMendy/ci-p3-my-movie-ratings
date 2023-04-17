@@ -47,6 +47,56 @@ def add_movie_rating():
     SHEET.append_row(row)
     print("Movie added successfully!")
 
+# Edit an existing row in the sheet based on the movie title
+def edit_movie_rating():
+    get_all_movies()
+    # Get the movie ID to edit from the user
+    while True:
+        try:
+            movie_id = int(input("Enter the ID of the movie to edit: "))
+            break
+        except ValueError:
+            print("Invalid input. Please enter a valid ID.")
+    # Get the row corresponding to the movie ID
+    values = SHEET.get_all_values()
+    headers = values[0]
+    rows = values[1:]
+    row_index = -1
+    for i in range(len(rows)):
+        if int(rows[i][0]) == movie_id:
+            row_index = i
+            break
+    if row_index == -1:
+        print("Movie ID not found.")
+        return
+    # Get the updated movie details from the user
+    title = input("Enter the new movie title (leave blank to keep current value): ")
+    if title == "":
+        title = rows[row_index][1]
+    genre = input("Enter the new genre (leave blank to keep current value): ")
+    if genre == "":
+        genre = rows[row_index][2]
+    while True:
+        try:
+            rating = int(input("Enter the new rating (0-5) (leave blank to keep current value): "))
+            if rating == "":
+                rating = rows[row_index][3]
+            elif rating < 0 or rating > 5:
+                print("Rating must be between 0 and 5. Please enter a valid rating.")
+            else:
+                break
+        except ValueError:
+            print("Rating must be an integer. Please enter a valid rating.")
+    comment = input("Enter the new comment (leave blank to keep current value): ")
+    if comment == "":
+        comment = rows[row_index][4]
+    # Update the row in the sheet
+    SHEET.update_cell(row_index + 2, 2, title)  # add 2 to row index to account for header row
+    SHEET.update_cell(row_index + 2, 3, genre)
+    SHEET.update_cell(row_index + 2, 4, rating)
+    SHEET.update_cell(row_index + 2, 5, comment)
+    print("Movie updated successfully!")
+    get_all_movies()
 
 # Function to delete an existing movie rating from the sheet
 def delete_movie_rating():
@@ -110,7 +160,7 @@ def menu():
         if user_choice == "1":
             add_movie_rating()
         elif user_choice == "2":
-            edit_movie()
+            edit_movie_rating()
         elif user_choice == '3':
             delete_movie_rating()
         elif user_choice == "4":
