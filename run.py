@@ -15,6 +15,39 @@ GSPREAD_CLIENT  = gspread.authorize(SCOPED_CREDS)
 SHEET = GSPREAD_CLIENT.open('my_movie_ratings').worksheet('movies')
 
 
+def add_movie_rating():
+
+    """
+        This function gets Movie Title, Genre, Rating, and Comment.
+        Then ID is assigned to a row of data based on other data in
+        Google Sheets. After, it sends the data to Google Sheets.
+    """
+
+    while True:
+        movie_title = input("Enter the movie title: ")
+        if not movie_title:
+            print("Title cannot be empty. Please enter a valid title.")
+        else:
+            break
+    movie_genre = input("Enter the genre: ")
+    while True:
+        try:
+            movie_rating = int(input("Enter your rating (0-5): "))
+            if movie_rating < 0 or movie_rating > 5:
+                print("Rating must be between 0 and 5. Please enter a valid rating.")
+            else:
+                break
+        except ValueError:
+            print("Rating must be an integer. Please enter a valid rating.")
+    movie_comment = input("Enter your comment: ")
+    movie_id = len(SHEET.get_all_values())  # exclude the first row
+    if movie_id == 0:
+        movie_id = 1  # start with ID 1 if sheet is empty
+    row = [movie_id, movie_title, movie_genre, movie_rating, movie_comment]
+    SHEET.append_row(row)
+    print("Movie added successfully!")
+
+
 def menu():
     """
         This function is main point of interaction of user with the app.
