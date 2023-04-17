@@ -7,9 +7,9 @@ SCOPE = ['https://spreadsheets.google.com/feeds',
          'https://www.googleapis.com/auth/drive']
 
 # Define the credentials and authorize the API access
-CREDS  = Credentials.from_service_account_file('creds.json')
+CREDS = Credentials.from_service_account_file('creds.json')
 SCOPED_CREDS = CREDS.with_scopes(SCOPE)
-GSPREAD_CLIENT  = gspread.authorize(SCOPED_CREDS)
+GSPREAD_CLIENT = gspread.authorize(SCOPED_CREDS)
 
 # Open the Google Sheet
 SHEET = GSPREAD_CLIENT.open('my_movie_ratings').worksheet('movies')
@@ -47,6 +47,7 @@ def add_movie_rating():
     SHEET.append_row(row)
     print("Movie added successfully!")
 
+
 # Edit an existing row in the sheet based on the movie title
 def edit_movie_rating():
     get_all_movies()
@@ -59,7 +60,6 @@ def edit_movie_rating():
             print("Invalid input. Please enter a valid ID.")
     # Get the row corresponding to the movie ID
     values = SHEET.get_all_values()
-    headers = values[0]
     rows = values[1:]
     row_index = -1
     for i in range(len(rows)):
@@ -70,33 +70,34 @@ def edit_movie_rating():
         print("Movie ID not found.")
         return
     # Get the updated movie details from the user
-    title = input("Enter the new movie title (leave blank to keep current value): ")
-    if title == "":
-        title = rows[row_index][1]
-    genre = input("Enter the new genre (leave blank to keep current value): ")
-    if genre == "":
-        genre = rows[row_index][2]
+    updated_title = input("Enter the new movie title (leave blank to keep current value): ")
+    if updated_title == "":
+        updated_title = rows[row_index][1]
+    updated_genre = input("Enter the new genre (leave blank to keep current value): ")
+    if updated_genre == "":
+        updated_genre = rows[row_index][2]
     while True:
         try:
-            rating = int(input("Enter the new rating (0-5) (leave blank to keep current value): "))
-            if rating == "":
-                rating = rows[row_index][3]
-            elif rating < 0 or rating > 5:
+            updated_rating = int(input("Enter the new rating (0-5) (leave blank to keep current value): "))
+            if updated_rating == "":
+                updated_rating = rows[row_index][3]
+            elif updated_rating < 0 or updated_rating > 5:
                 print("Rating must be between 0 and 5. Please enter a valid rating.")
             else:
                 break
         except ValueError:
             print("Rating must be an integer. Please enter a valid rating.")
-    comment = input("Enter the new comment (leave blank to keep current value): ")
-    if comment == "":
-        comment = rows[row_index][4]
+    updated_comment = input("Enter the new comment (leave blank to keep current value): ")
+    if updated_comment == "":
+        updated_comment = rows[row_index][4]
     # Update the row in the sheet
-    SHEET.update_cell(row_index + 2, 2, title)  # add 2 to row index to account for header row
-    SHEET.update_cell(row_index + 2, 3, genre)
-    SHEET.update_cell(row_index + 2, 4, rating)
-    SHEET.update_cell(row_index + 2, 5, comment)
+    SHEET.update_cell(row_index + 2, 2, updated_title)  # add 2 to row index to account for header row
+    SHEET.update_cell(row_index + 2, 3, updated_genre)
+    SHEET.update_cell(row_index + 2, 4, updated_rating)
+    SHEET.update_cell(row_index + 2, 5, updated_comment)
     print("Movie updated successfully!")
     get_all_movies()
+
 
 # Function to delete an existing movie rating from the sheet
 def delete_movie_rating():
@@ -140,12 +141,12 @@ def menu():
     """
 
     print(
-    """
-    Welcome to My Movie Ratings app!
+        """
+            Welcome to My Movie Ratings app!
 
-    This is your library to keep track of
-    movies you have watched and rate them.
-    """
+            This is your library to keep track of
+            movies you have watched and rate them.
+        """
     )
     while True:
         print('\n==== MENU ====')
@@ -180,5 +181,6 @@ def menu():
 
 def main():
     menu()
+
 
 menu()
