@@ -132,7 +132,7 @@ def delete_movie_rating():
     
     # Find the row index of the movie with the given ID
     row_index = None
-    for i in range(1, len(SHEET.get_all_values())):
+    for i in range(1, len(SHEET.get_all_values())+1):
         row = SHEET.row_values(i)
         if row[0] == movie_id:
             row_index = i
