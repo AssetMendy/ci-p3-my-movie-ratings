@@ -23,6 +23,7 @@ def add_movie_rating():
         Then ID is assigned to a row of data based on other data in
         Google Sheets. After, it sends the data to Google Sheets.
     """
+
     print(
         """
             Let's get started! Here you can store your ratings!
@@ -59,8 +60,19 @@ def add_movie_rating():
     time.sleep(2)
 
 
-# Edit an existing row in the sheet based on the movie title
 def edit_movie_rating():
+
+    """
+        This function allows user to edit a certain movie rating.
+        1. It runs get_all_movies() to show existing data as a table.
+        2. User refers to the table and chooses ID of data to edit.
+        3. User is asked to update the data for chosen row, if no changes
+        needed user can press Enter to skip
+        4. Finally, new inputs are sent to Google Sheet to update rows
+        5. get_all_movies() runs again to show table with updated data
+        6. User is returned to menu section
+    """
+
     get_all_movies()  # Show table with current movies in library for reference
 
     # Get the movie ID to edit from the user
@@ -121,15 +133,26 @@ def edit_movie_rating():
     SHEET.update_cell(row_index + 2, 5, updated_comment)
 
     print("\nMovie updated successfully!\n")
+    time.sleep(1)
     get_all_movies()  # Return updated table to show user choices applied
+    time.sleep(3)
+    print("\nReturning to menu...")
+    time.sleep(2)
 
 
-# Function to delete an existing movie rating from the sheet
 def delete_movie_rating():
+
+    """
+        This function allows user to delete a certain row of data
+        from Google Sheet. To choose which row to delete function
+        asks for its ID. Finally, it runs update_ids() to update
+        all IDs to make sure that ID are in order
+    """
+
     get_all_movies()
     # Get the ID of the movie to be deleted from the user
     movie_id = input("\nEnter the ID of the movie to delete: ")
-    
+
     # Find the row index of the movie with the given ID
     row_index = None
     for i in range(1, len(SHEET.get_all_values())+1):
@@ -137,7 +160,7 @@ def delete_movie_rating():
         if row[0] == movie_id:
             row_index = i
             break
-    
+
     # If the movie with the given ID is found, delete the row and update the IDs of remaining rows
     if row_index is not None:
         SHEET.delete_rows(row_index)
@@ -145,15 +168,15 @@ def delete_movie_rating():
         for i in range(row_index, len(SHEET.get_all_values())):
             SHEET.update_cell(i+1, 1, i)
         print(f"Movie with ID {movie_id} deleted successfully.")
+        time.sleep(1)
         update_ids()  # Updates IDs for the data in Google Sheet
     else:
         print(f"No movie found with ID {movie_id}.")
-        time.sleep(2)
-        print("Returning to menu...")
         time.sleep(1)
+        print("Returning to menu...")
+        time.sleep(2)
 
 
-# Get all the rows from the sheet
 def get_all_movies():
 
     """
@@ -161,6 +184,7 @@ def get_all_movies():
     then displays it to a user in a clean table view with help of
     tabulate module
     """
+
     # Get all the rows from the sheet
     rows = SHEET.get_all_values()
     # Exclude the header row
@@ -172,14 +196,22 @@ def get_all_movies():
 
 
 def update_ids():
+
+    """
+        This function iterates thru ID column in Google Sheet
+        and updates them to be in sequential order from 1.
+    """
+
     # Loop over all rows in the worksheet, skipping the header row
     for i, row in enumerate(SHEET.get_all_values()[1:], start=1):
         # Update the ID value in the first column of the row
         SHEET.update_cell(i + 1, 1, i)
     print("IDs updated successfully.")
+    time.sleep(2)
 
 
 def menu():
+
     """
         This function is main point of interaction of user with the app.
         It shows welcome message for the app. Then it opens the menu.
@@ -212,18 +244,15 @@ def menu():
         elif user_choice == '3':
             delete_movie_rating()
         elif user_choice == "4":
-            movies = get_all_movies()
-            if movies:
-                print("Movies watched:")
-                for movie in movies:
-                    print(movie[0], movie[1])
-            else:
-                print("No movies found.")
+            print("Ok... Here are the movies you watched and rated so far: \n")
+            time.sleep(1)
+            get_all_movies()
+            time.sleep(5)
         elif user_choice == "5":
             print("See you next time!")
             break
         else:
-            print("Invalid choice. Please enter a number between 1 and 4.")
+            print("Invalid choice. Please enter a number between 1 and 5.")
 
 
 def main():
