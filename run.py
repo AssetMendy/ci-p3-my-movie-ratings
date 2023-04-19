@@ -42,12 +42,12 @@ def add_movie_rating():
         try:
             movie_rating = int(input("Enter your rating (0-5): "))
             if movie_rating < 0 or movie_rating > 5:
-                print("Rating must be between 0 and 5. Please enter a valid rating.")
+                print("Rating must be between 0 and 5. Enter a valid rating.")
             else:
                 break
         except ValueError:
             print("Rating must be an integer. Please enter a valid rating.")
-    movie_comment = input("Enter your comment: ")
+    movie_comment = input("Enter your comment (optional): ")
     movie_id = len(SHEET.get_all_values())  # exclude the first row
     if movie_id == 0:
         movie_id = 1  # start with ID 1 if sheet is empty
@@ -96,12 +96,12 @@ def edit_movie_rating():
         return
 
     # Get the updated title, can be left blank to not change anything
-    updated_title = input("Enter the new movie title (leave blank to keep current value): ")
+    updated_title = input("Enter new movie title (leave blank to skip): ")
     if updated_title == "":
         updated_title = rows[row_index][1]
 
     # Get the updated genre, can be left blank to not change anything
-    updated_genre = input("Enter the new genre (leave blank to keep current value): ")
+    updated_genre = input("Enter new genre (leave blank to skip): ")
     if updated_genre == "":
         updated_genre = rows[row_index][2]
 
@@ -109,25 +109,26 @@ def edit_movie_rating():
     # Validated that rating value is correct data type
     while True:
         try:
-            updated_rating_str = input("Enter the new rating (0-5) (leave blank to keep current value): ")
+            updated_rating_str = input("Enter new rating (0-5) (leave blank to skip): ")
             if not updated_rating_str:
                 updated_rating = rows[row_index][3]
             else:
                 updated_rating = int(updated_rating_str)
                 if updated_rating < 0 or updated_rating > 5:
-                    print("Rating must be between 0 and 5. Please enter a valid rating.")
+                    print("Rating must be between 0 & 5. Enter a valid rating")
                     continue
             break
         except ValueError:
             print("Rating must be an integer. Please enter a valid rating.")
 
     # Get the updated comment, can be left blank to not change anything
-    updated_comment = input("Enter the new comment (leave blank to keep current value): ")
+    updated_comment = input("Enter new comment (leave blank to skip): ")
     if updated_comment == "":
         updated_comment = rows[row_index][4]
 
     # Update the row in the sheet with corresponding changes from user side
-    SHEET.update_cell(row_index + 2, 2, updated_title)  # add 2 to row index to account for header row
+    # add 2 to row index to account for header row
+    SHEET.update_cell(row_index + 2, 2, updated_title)
     SHEET.update_cell(row_index + 2, 3, updated_genre)
     SHEET.update_cell(row_index + 2, 4, updated_rating)
     SHEET.update_cell(row_index + 2, 5, updated_comment)
@@ -161,7 +162,8 @@ def delete_movie_rating():
             row_index = i
             break
 
-    # If the movie with the given ID is found, delete the row and update the IDs of remaining rows
+    # If the movie with the given ID is found,
+    # delete the row and update the IDs of remaining rows
     if row_index is not None:
         SHEET.delete_rows(row_index)
         # Update the IDs of remaining rows
