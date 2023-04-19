@@ -1,6 +1,6 @@
 # My Movie Ratings
 
-#### (Click to redirect to deployed app)[https://my-movie-ratings.herokuapp.com]
+#### [Click to redirect to deployed app](https://my-movie-ratings.herokuapp.com)
 
 My Movie Ratings is an app for tracking, rating and commenting movies and shows you have watched.
 
@@ -20,6 +20,7 @@ This is a terminal app, where you can Add your movie, Edit or Delete them, and v
 ### Existing Features: 
 
 - Menu
+
     - Menu acts as a point where users can choose what actions they need to complete
     - A short welcome message is displayed to show app name and its purpose
     - Navigation thru menu is done by inputting a number between 1 and 5.
@@ -29,6 +30,9 @@ This is a terminal app, where you can Add your movie, Edit or Delete them, and v
         - Delete an existing movie rating
         - See all movie ratings
         - Exit
+
+![A screenshot of terminal showing app menu](documentation/menu.jpg)
+
 
 
 - Adding Movie Rating
@@ -43,18 +47,68 @@ This is a terminal app, where you can Add your movie, Edit or Delete them, and v
     - Rating input must be an integer between 0 and 5
     - Also, some confirmation messages are displayed to let user know that action completed successfully
 
+![A screenshot of terminal showing app Add Movie Rating feature](documentation/add_movie_rating.jpg)
+
+
 - Editing Movie Rating
     - This feature allows to edit the data already stored in Google Sheets, in case of user changed mind, or made a mistake
     - To make editing convenient, if users want to changed only a certain category they can easily skip a step by pressing Enter
+
+![A screenshot of terminal showing app Editing Movie Rating feature](documentation/add_movie_rating.jpg)
+
 
 - Deleting Movie Rating
     - In case user decided to remove existing data, this feature will allow user with ease to do so only by entering ID of the movie
     - For users convenience, table with existing movies displayed
 
+![A screenshot of terminal showing app Deleting Movie Rating feature](documentation/delete_movie_rating.jpg)
+
+
 - Seeing All Movies
     - Finally, users can see all entries they made. This way they can see and compare movies/shows they watched and rated
+
+![A screenshot of terminal showing app Seeing All Movies feature](documentation/see_all_movies.jpg)
+
 
 - Data Validations and Error Handling
     - Each input that made by a user is validated to make sure that correct data type and format are entered
     - In case, user entered wrong input they will see a message explaining what is wrong and how to fix
+
+- Exiting the app
+    - User has options to exit the app in the menu by choosing option 5
+
+![A screenshot of terminal showing Exiting the app](documentation/exit_app.jpg)
+
+## Testing
+
+- In order to identify existing bugs I manually tested the app
+- Each input in the app tested using following methods considering each input's restictions
+    - Entering valid integer in given range
+    - Entering out of range integers
+    - Entering a text
+    - Entering decimals
+    - Entering an empty input
+
+    ### Bugs 
+
+    __Found and Fixed__
+    - Edit and Delete feature were not detecting last row of data
+        - Solution: `worksheet.delete_rows(i+2)` - I added 2 for each iteration to take into account headers in the Google Sheet and 0-index.
+    - ID order would break if row of data is deleted in the middle of table
+        - Solution: `update_ids()` - I created a function that iterates thru IDs and reassigns new IDs in order starting from 1. This function runs every time after movie is deleted.
+
+    __Existing and Not Fixed__
+    - Not observed any existing bugs that disrupts work of the app
+
+    ### Validator test
+    
+
+
+## Credits:
+
+- Following sources were used in order to implement the project:
+    - All info about how gspread is used were looked up at https://docs.gspread.org/en/latest/user-guide.html
+    - Time delays were implemented with help of https://stackoverflow.com/questions/510348/how-do-i-make-a-time-delay
+    - Using Google API to interact with Google Sheets were inspired by Code Institute coding challenge
+    - In order to display table, tabulate is used and all guide is looked up at https://pypi.org/project/tabulate/
 
