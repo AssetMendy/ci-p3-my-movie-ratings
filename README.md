@@ -80,7 +80,6 @@ This is a terminal app, where you can Add your movie, Edit or Delete them, and v
 ![A screenshot of terminal showing Exiting the app](documentation/exit_app.jpg)
 
 ## Testing
-
 - In order to identify existing bugs I manually tested the app
 - Each input in the app tested using following methods considering each input's restictions
     - Entering valid integer in given range
@@ -89,19 +88,21 @@ This is a terminal app, where you can Add your movie, Edit or Delete them, and v
     - Entering decimals
     - Entering an empty input
 
-    ### Bugs 
+### Bugs 
 
-    __Found and Fixed__
-    - Edit and Delete feature were not detecting last row of data
-        - Solution: `worksheet.delete_rows(i+2)` - I added 2 for each iteration to take into account headers in the Google Sheet and 0-index.
-    - ID order would break if row of data is deleted in the middle of table
-        - Solution: `update_ids()` - I created a function that iterates thru IDs and reassigns new IDs in order starting from 1. This function runs every time after movie is deleted.
+__Found and Fixed__
+- Edit and Delete feature were not detecting last row of data
+    - Solution: `worksheet.delete_rows(i+2)` - I added 2 for each iteration to take into account headers in the Google Sheet and 0-index.
+- ID order would break if row of data is deleted in the middle of table
+    - Solution: `update_ids()` - I created a function that iterates thru IDs and reassigns new IDs in order starting from 1. This function runs every time after movie is deleted.
 
-    __Existing and Not Fixed__
-    - Not observed any existing bugs that disrupts work of the app
+__Existing and Not Fixed__
+- Not observed any existing bugs that disrupts work of the app
 
-    ### Validator test
-    
+### Validator test
+- PEP 8 
+    - Only one error was returned considering the length of the code in line 112. But it does not affect the app in runtime.
+        
 
 
 ## Credits:
