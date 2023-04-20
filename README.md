@@ -1,19 +1,20 @@
 # My Movie Ratings
 
-#### [Click to redirect to deployed app](https://my-movie-ratings.herokuapp.com)
+__[Click to redirect to deployed app](https://my-movie-ratings.herokuapp.com)__
 
 My Movie Ratings is an app for tracking, rating and commenting movies and shows you have watched.
 
 This is a terminal app, where you can Add your movie, Edit or Delete them, and view all movie entries to see what you watched.
+This app is designed for people who would like to keep history of movies and shows they watched, and rate them for futher references.
 
-
-## How to Use
-
-- Go to https://my-movie-ratings.herokuapp.com and the app should be ready touse.
-- To choose what to do in the app, you need to navigate in menu with options from 1 to 5.
-- 
-
-
+## Short Overview
+- Go to https://my-movie-ratings.herokuapp.com and run the programm
+- After, terminal will run the app and you can navigate in menu and choose what you want to do
+- Choose "Add a new movie rating" to add new entry to the library
+- Choose "Edit an existing movie rating" to edit already existing entry in the library
+- Choose "Delete an existing movie rating" to remove entry from the library
+- Choose "See all movie ratings" to see all entries in the library
+- Choose "Exit" to quit the app
 
 ## Features
 
