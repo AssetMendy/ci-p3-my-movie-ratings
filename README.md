@@ -15,7 +15,7 @@ This is a terminal app, where you can Add your movie, Edit or Delete them, and v
 
 
 
-## Features:
+## Features
 
 ### Existing Features: 
 
@@ -32,7 +32,6 @@ This is a terminal app, where you can Add your movie, Edit or Delete them, and v
         - Exit
 
 ![A screenshot of terminal showing app menu](documentation/menu.jpg)
-
 
 
 - Adding Movie Rating
@@ -79,6 +78,19 @@ This is a terminal app, where you can Add your movie, Edit or Delete them, and v
 
 ![A screenshot of terminal showing Exiting the app](documentation/exit_app.jpg)
 
+### Features to Consider:
+- Add more visuals, such as, colors, ASCII art and etc.
+- Add option to export the list of movies watched
+
+## Data Model
+For this project Google Sheets is used as app's database. The spreadsheet is divided into 5 columns for ID, Title, Genre, Rating and Comments.
+Each row of the spreadsheet is meant to store data for one movie. Title, Genre, Rating and Comments are got from user inputs.
+While ID is automatically assigned to each new data entry.
+
+All further interaction with database is done by calling an ID of the movie. In order to edit or delete a movie rating, user has to provide its ID.
+
+![Image of the spreadsheet with column titles of ID, Title, Genre, Rating and Comments](documentation/spreadsheet.jpg)
+
 ## Testing
 - In order to identify existing bugs I manually tested the app
 - Each input in the app tested using following methods considering each input's restictions
@@ -120,7 +132,7 @@ This project is deployed on Heroku using Code Institute Python template
     7. Link the repository to Heroku app
     6. Now click to Deploy under Deploy tab
 
-## Credits:
+## Credits
 
 - Following sources were used in order to implement the project:
     - All info about how gspread is used were looked up at https://docs.gspread.org/en/latest/user-guide.html
