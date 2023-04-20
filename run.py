@@ -12,7 +12,7 @@ CREDS = Credentials.from_service_account_file('creds.json')
 SCOPED_CREDS = CREDS.with_scopes(SCOPE)
 GSPREAD_CLIENT = gspread.authorize(SCOPED_CREDS)
 
-# Open the Google Sheet
+# Open the Google Sheet (change Spreadsheet and Worksheet names with yours )
 SHEET = GSPREAD_CLIENT.open('my_movie_ratings').worksheet('movies')
 
 
