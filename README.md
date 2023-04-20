@@ -102,8 +102,23 @@ __Existing and Not Fixed__
 ### Validator test
 - PEP 8 
     - Only one error was returned considering the length of the code in line 112. But it does not affect the app in runtime.
-        
 
+## Deployment
+This project is deployed on Heroku using Code Institute Python template
+
+- How to Deploy for your own Google Sheet spreadsheet:
+    1. Clone or fork the repositoty
+    2. Now you need to update credentials and Google Sheet info with your info:
+        1. Create creds.json in repository
+        2. Add you credentials to creds.json 
+        3. In run.py, line 16 update: `SHEET = GSPREAD_CLIENT.open('`type your spreadsheet name`').worksheet('`type here your worksheet name`')`
+        4. Save changes
+    3. Create new app in Heroku
+    4. In Heroku Settings tab:
+        - Add Python and Node.js buildpack
+        - Add Config Vars: `KEY: PORT; VALUE: 8000` and `KEY: CREDS; VALUE: "your .json credentials" `
+    7. Link the repository to Heroku app
+    6. Now click to Deploy under Deploy tab
 
 ## Credits:
 
